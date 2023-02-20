@@ -1,11 +1,20 @@
 import React from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text, Button, TouchableOpacity} from 'react-native';
 import { db, authenticate } from '../firebase';
+import {useNavigation} from "@react-navigation/native";
 
 const BorderScreen = () => {
-
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
+            <View style={styles.listContainer}>
+                <TouchableOpacity
+                    onPress={() => {navigation.navigate("Liste")}}
+                    style={styles.button}
+                >
+                    <Text>Liste</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.top}>
                 <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold'}}>Güvendeyim</Text>
                 <Button onPress={onGuvendeyimButton} title={'Güvendeyim'}></Button>
@@ -68,6 +77,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderWidth: 5,
         borderRadius: '50%'
+    },
+    listContainer: {
+        borderRadius: '50%',
+        borderWidth: 5,
+        backgroundColor: 'orange',
+        margin: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     bottom: {
         flex: 0.4,

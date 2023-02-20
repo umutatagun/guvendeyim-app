@@ -6,7 +6,7 @@ import {
     KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
-    Button, AsyncStorage
+    AsyncStorage
 } from "react-native";
 import { authenticate } from '../firebase';
 import {useNavigation} from "@react-navigation/native";
@@ -68,12 +68,6 @@ const LoginScreen = () => {
             >
                 <Text style={styles.buttonOutlineText}>Register</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => {navigation.navigate("Liste")}}
-                style={styles.button}
-            >
-                <Text>Liste</Text>
-            </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
     )
@@ -89,9 +83,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: '80%'
-    },
-    listContainer: {
-        margin: 20
     },
     input: {
         backgroundColor: 'white',
