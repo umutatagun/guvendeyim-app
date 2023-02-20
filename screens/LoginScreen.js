@@ -26,7 +26,9 @@ const LoginScreen = () => {
                 AsyncStorage.setItem("keepLoggedIn", JSON.stringify(true));
                 navigation.navigate("Border")
             })
-            .catch(error => alert(error.message));
+            .catch(error => {
+                alert(error.message);
+            });
     }
 
     const listHandle = () => {
