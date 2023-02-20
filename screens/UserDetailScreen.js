@@ -3,46 +3,31 @@ import {
     Text,
     View,
     StyleSheet
-    , Dimensions
+    , Dimensions, TouchableOpacity
 } from "react-native";
 import MapView, {Callout, Marker} from "react-native-maps";
-import * as Location from "expo-location";
+import { db, authenticate} from "../firebase";
 
-const UserDetail = () => {
+const UserDetail = ({route}) => {
+    const splittedMail = route.params.user.split("@")[0];
+    const getData = db.ref("/status/"+splittedMail);
+    let longitude, latitude;
 
-    const [pin, setPin] = useState({
-        latitude: 40.9435828694083,
-        longitude: 29.117661124872438
+    getData.on('value', (snapshot) => {
+        latitude = snapshot.toJSON()['latitude'];
+        longitude = snapshot.toJSON()['longitude'];
     })
-
-    useEffect( () => {
-        (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if( status !== "granted") {
-                alert("Permission denied");
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            console.log(location);
-
-            setPin({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude
-            });
-        })();
-    }, []);
 
 
     return (
         <View style={styles.container}>
             <MapView style={styles.map} initialRegion={{
-                latitude: 40.9435828694083,
-                longitude: 29.117661124872438,
+                latitude: latitude,
+                longitude: longitude,
                 latitudeDelta: 0.005,
                 longitudeDelta: 0.0005
                 }}>
-             <Marker coordinate={pin} pinColor="blue">
+             <Marker coordinate={{latitude: latitude, longitude: longitude}} pinColor="blue">
                  <Callout>
                      <Text>Guncel Konum</Text>
                  </Callout>

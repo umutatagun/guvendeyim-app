@@ -1,12 +1,64 @@
-import React from 'react';
-import {View, StyleSheet, Text, Button, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { db, authenticate } from '../firebase';
 import {useNavigation} from "@react-navigation/native";
 import Moment from 'moment';
 import moment from "moment";
+import * as Location from "expo-location";
 
 const BorderScreen = () => {
     const navigation = useNavigation();
+
+    const splittedMail = authenticate.currentUser.email.split("@")[0];
+    const getData = db.ref("/user/");
+    const setData = db.ref("/status/"+splittedMail);
+    Moment.locale('tr');
+    let location;
+
+    useEffect( () => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if( status !== "granted") {
+                alert("Permission denied");
+                return;
+            }
+
+            location = await Location.getCurrentPositionAsync({});
+        })();
+    }, []);
+
+    function onGuvendeyimButton() {
+        getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
+            setData.set({
+                nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
+                phone: snapshot.child(splittedMail).toJSON()["phone"],
+                email: snapshot.child(splittedMail).toJSON()["email"],
+                currentStatus: "Guvende",
+                date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss'),
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            })
+        });
+        alert("İslem Kaydedildi")
+    }
+    function onGuvendeDegilimButton() {
+
+        getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
+            console.log(snapshot.child(splittedMail).toJSON());
+            setData.set({
+                nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
+                phone: snapshot.child(splittedMail).toJSON()["phone"],
+                email: snapshot.child(splittedMail).toJSON()["email"],
+                currentStatus: "Guvende Değil",
+                date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss'),
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            })
+        });
+
+    }
+
+
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.listContainer} onPress={() => {navigation.navigate("Liste")}}>
@@ -22,38 +74,6 @@ const BorderScreen = () => {
     );
 };
 
-const getData = db.ref("/user/");
-
-function onGuvendeyimButton() {
-    const splittedMail = authenticate.currentUser.email.split("@")[0];
-    const setData = db.ref("/status/"+splittedMail);
-    Moment.locale('tr');
-
-    getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
-        setData.set({
-            nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
-            phone: snapshot.child(splittedMail).toJSON()["phone"],
-            currentStatus: "Guvende",
-            date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss')
-        })
-    });
-    alert("İslem Kaydedildi")
-}
-function onGuvendeDegilimButton() {
-    const splittedMail = authenticate.currentUser.email.split("@")[0];
-    const setData = db.ref("/status/"+splittedMail);
-    Moment.locale('tr');
-
-    getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
-        setData.set({
-            nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
-            phone: snapshot.child(splittedMail).toJSON()["phone"],
-            currentStatus: "Guvende Değil",
-            date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss')
-        })
-    });
-
-}
 
 const styles = StyleSheet.create({
     container: {

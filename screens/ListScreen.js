@@ -9,8 +9,9 @@ const ListScreen = () => {
 
     db.ref("/status").on('value', (snapshot) => {
         snapshot.forEach(elem => {
+            console.log()
             tempList.push(
-                <TouchableOpacity style={styles.viewStyle} key={Math.random()} onPress={() => {navigation.navigate("UserDetail")}}>
+                <TouchableOpacity style={styles.viewStyle} key={Math.random()} onPress={() => {navigation.navigate("UserDetail",{user: elem.toJSON()['email']})}}>
                     <View key={Math.random()}>
                         <Text key={elem.toJSON()['nameSurname']}>{elem.toJSON()['nameSurname']}</Text>
                         <Text key={elem.toJSON()['phone']}>{elem.toJSON()['phone']}</Text>

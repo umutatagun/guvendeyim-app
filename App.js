@@ -15,7 +15,7 @@ export default function App() {
     const _retrieveData = async () => {
         try{
             const data = await AsyncStorage.getItem("keepLoggedIn");
-            setIsLogged(data);
+            setIsLogged(false);
         }catch (error){
             console.log(error);
         }
