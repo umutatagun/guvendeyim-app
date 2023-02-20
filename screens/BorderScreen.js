@@ -9,14 +9,9 @@ const BorderScreen = () => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <View style={styles.listContainer}>
-                <TouchableOpacity
-                    onPress={() => {navigation.navigate("Liste")}}
-                    style={styles.button}
-                >
-                    <Text>Durum Listesi</Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.listContainer} onPress={() => {navigation.navigate("Liste")}}>
+                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold', color: 'lightyellow'}}>Durum Listesi</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.top} onPress={onGuvendeyimButton} >
                 <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold'}}>Güvendeyim</Text>
             </TouchableOpacity>
@@ -34,7 +29,6 @@ function onGuvendeyimButton() {
     const setData = db.ref("/status/"+splittedMail);
     Moment.locale('tr');
 
-
     getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
         setData.set({
             nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
@@ -42,7 +36,8 @@ function onGuvendeyimButton() {
             currentStatus: "Guvende",
             date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss')
         })
-    })
+    });
+    alert("İslem Kaydedildi")
 }
 function onGuvendeDegilimButton() {
     const splittedMail = authenticate.currentUser.email.split("@")[0];
@@ -56,7 +51,8 @@ function onGuvendeDegilimButton() {
             currentStatus: "Guvende Değil",
             date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss')
         })
-    })
+    });
+
 }
 
 const styles = StyleSheet.create({
@@ -82,12 +78,11 @@ const styles = StyleSheet.create({
         borderRadius: '50%'
     },
     listContainer: {
-        borderRadius: '50%',
-        borderWidth: 5,
+        flex: 0.1,
         backgroundColor: 'orange',
-        margin: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        borderWidth: 5,
+        borderRadius: '50%'
     },
     bottom: {
         flex: 0.4,

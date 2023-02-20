@@ -1,15 +1,16 @@
 import React, {useEffect} from "react";
-import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import { db, authenticate} from "../firebase";
-import stylesheet from "react-native-web/src/exports/StyleSheet";
+import {useNavigation} from "@react-navigation/native";
 
 const ListScreen = () => {
+    const navigation = useNavigation();
     let tempList = [];
 
     db.ref("/status").on('value', (snapshot) => {
         snapshot.forEach(elem => {
             tempList.push(
-                <View style={styles.viewStyle}>
+                <TouchableOpacity style={styles.viewStyle} key={Math.random()} onPress={() => {navigation.navigate("UserDetail")}}>
                     <View key={Math.random()}>
                         <Text key={elem.toJSON()['nameSurname']}>{elem.toJSON()['nameSurname']}</Text>
                         <Text key={elem.toJSON()['phone']}>{elem.toJSON()['phone']}</Text>
@@ -18,13 +19,13 @@ const ListScreen = () => {
                         <Text key={elem.toJSON()['currentStatus']}>{elem.toJSON()['currentStatus']}</Text>
                         <Text key={elem.toJSON()['date']}>{elem.toJSON()['date']}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
         });
     })
 
     return(
-        <ScrollView style={styles.scrollView}>
+        <ScrollView style={styles.scrollView} key={2}>
             {tempList}
         </ScrollView>
     )

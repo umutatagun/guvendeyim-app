@@ -31,10 +31,6 @@ const LoginScreen = () => {
             });
     }
 
-    const listHandle = () => {
-        useNavigation().navigate("Listeee");
-    }
-
     return (
         <KeyboardAvoidingView
         style={styles.container}
