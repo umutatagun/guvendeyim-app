@@ -7,6 +7,7 @@ import ListScreen from "./screens/ListScreen";
 import UserDetailScreen from "./screens/UserDetailScreen";
 import {useEffect, useState} from "react";
 import {AsyncStorage} from "react-native";
+import InformationScreen from "./screens/InformationScreen";
 
 export default function App() {
     const Stack = createNativeStackNavigator();
@@ -34,12 +35,14 @@ export default function App() {
                   < Stack.Screen name="Register" component={RegisterScreen} />
                   < Stack.Screen name="Border" component={BorderScreen} />
                   < Stack.Screen name="UserDetail" component={UserDetailScreen} />
+                  < Stack.Screen name="Additional-Information" component={InformationScreen} />
               </Stack.Navigator> :
               <Stack.Navigator>
                   < Stack.Screen name="Border" component={BorderScreen} />
                   < Stack.Screen name="Liste" component={ListScreen} />
                   < Stack.Screen name="Register" component={RegisterScreen} />
                   < Stack.Screen name="UserDetail" component={UserDetailScreen} />
+                  < Stack.Screen name="Additional-Information" component={InformationScreen} />
               </Stack.Navigator>
           }
       </NavigationContainer>

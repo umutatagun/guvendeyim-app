@@ -56,6 +56,7 @@ const RegisterScreen = () => {
                     value={ phone }
                     onChangeText={ text => setPhone(text)}
                     style={styles.input}
+                    keyboardType={'numeric'}
                 />
                 <TextInput
                     placeholder="Password"

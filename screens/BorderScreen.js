@@ -44,8 +44,8 @@ const BorderScreen = () => {
     function onGuvendeDegilimButton() {
 
         getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
-            console.log(snapshot.child(splittedMail).toJSON());
-            setData.set({
+
+            let propData = {
                 nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
                 phone: snapshot.child(splittedMail).toJSON()["phone"],
                 email: snapshot.child(splittedMail).toJSON()["email"],
@@ -53,11 +53,13 @@ const BorderScreen = () => {
                 date: Moment(moment()).format('DD-MM-YYYY:HH-mm-ss'),
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
-            })
+            }
+            setData.set(propData)
+
+            propData.splittedMail = splittedMail;
+            navigation.navigate("Additional-Information", {jsonData: propData});
         });
-
     }
-
 
     return (
         <View style={styles.container}>

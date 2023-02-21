@@ -9,7 +9,6 @@ const ListScreen = () => {
 
     db.ref("/status").on('value', (snapshot) => {
         snapshot.forEach(elem => {
-            console.log()
             tempList.push(
                 <TouchableOpacity style={styles.viewStyle} key={Math.random()} onPress={() => {navigation.navigate("UserDetail",{user: elem.toJSON()['email']})}}>
                     <View key={Math.random()}>

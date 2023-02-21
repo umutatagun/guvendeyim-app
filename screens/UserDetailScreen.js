@@ -11,11 +11,12 @@ import { db, authenticate} from "../firebase";
 const UserDetail = ({route}) => {
     const splittedMail = route.params.user.split("@")[0];
     const getData = db.ref("/status/"+splittedMail);
-    let longitude, latitude;
+    let longitude, latitude, text;
 
     getData.on('value', (snapshot) => {
         latitude = snapshot.toJSON()['latitude'];
         longitude = snapshot.toJSON()['longitude'];
+        text = snapshot.toJSON()['message'];
     })
 
 
@@ -33,6 +34,10 @@ const UserDetail = ({route}) => {
                  </Callout>
               </Marker>
             </MapView>
+            <View style={styles.textArea} >
+                <Text style={{fontWeight: 'bold', fontSize: 24, color: 'black', textAlign: 'center'}}>İlgili Kişi Mesajı</Text>
+                <Text style={{fontWeight: '500', fontSize: 16}}>{text}</Text>
+            </View>
         </View>
     )
 }
@@ -44,10 +49,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-between'
     },
     map: {
+        flex: 0.65,
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height,
+    },
+    textArea: {
+        margin: 5,
+        width: '100%',
+        flex: 0.35,
+        backgroundColor: '#ddd'
     },
 })
