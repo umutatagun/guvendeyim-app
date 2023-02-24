@@ -17,7 +17,11 @@ export default function App() {
     const _retrieveData = async () => {
         try{
             const data = await AsyncStorage.getItem("keepLoggedIn");
-            setIsLogged(false);
+            if(data === 'false') {
+                setIsLogged(false)
+            }else if(data === 'true') {
+                setIsLogged(true);
+            }
         }catch (error){
             console.log(error);
         }
@@ -29,7 +33,7 @@ export default function App() {
 
   return (
       <NavigationContainer>
-          {!isLogged?
+          {!isLogged ?
               <Stack.Navigator>
                   < Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen}/>
                   < Stack.Screen name="Liste" component={ListScreen} />
