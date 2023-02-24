@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         padding: 10,
         borderWidth: 1,
-        borderRadius: '10%'
+        borderRadius: 10
     }
 })

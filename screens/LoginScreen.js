@@ -6,10 +6,14 @@ import {
     KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage, Image, Dimensions
 } from "react-native";
 import { authenticate } from '../firebase';
 import {useNavigation} from "@react-navigation/native";
+
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 9 / 16); //calculate with aspect ratio
+
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -36,6 +40,11 @@ const LoginScreen = () => {
         style={styles.container}
         behavior="padding"
         >
+        <View  style={styles.logoContainer}>
+        <Image style={{width: '100%', height: '100%', position: 'relative', right: 50}}
+            source={require('../assets/LOGO.png')}
+        />
+        </View>
         <View style={styles.inputContainer}>
             <TextInput
                 placeholder="Email"
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonOutline: {
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         marginTop: 5,
         borderColor: '#0782F9',
         borderWidth: 2
@@ -117,6 +126,10 @@ const styles = StyleSheet.create({
         color: '#0782F9',
         fontWeight: '700',
         fontSize: 16
+    },
+    logoContainer: {
+        width: Dimensions.get('window').width,
+        height: imageHeight
     }
 
 })

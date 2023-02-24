@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import {Text, View, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity} from "react-native";
+import {Text, View, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity, AsyncStorage} from "react-native";
 import { authenticate } from '../firebase';
 import { db } from '../firebase';
 import {useNavigation} from "@react-navigation/native";
-
 
 const RegisterScreen = () => {
     const [email, setEmail] = useState('');
@@ -13,23 +12,36 @@ const RegisterScreen = () => {
 
     const navigation = useNavigation();
 
-        const handleSignUp = () => {
+        const handleSignUp = async () => {
             let split = email.split("@")[0];
-
             const userDb = db.ref("user/"+ split);
-            authenticate
-                .createUserWithEmailAndPassword(email, password)
-                .then(() => {
-                    userDb.set({
-                        email: email,
-                        phone: phone,
-                        nameSurname: nameSurname
-                    }).then(() => {
-                        alert("Kayit basarili");
-                        navigation.navigate("Login")
+            const isApproved = await AsyncStorage.getItem("isKVKKApproved");
+
+            if(isApproved === 'true') {
+                authenticate
+                    .createUserWithEmailAndPassword(email, password)
+                    .then(() => {
+                        userDb.set({
+                            email: email,
+                            phone: phone,
+                            nameSurname: nameSurname
+                        }).then(() => {
+                            alert("Kayit basariliƒ");
+                            navigation.navigate("Login")
+                        })
                     })
-                })
-                .catch(error => alert(error.message));
+                    .catch(error => alert(error.message));
+            }else{
+                alert("Aydınlatma Metnini Onaylayınız")
+            }
+    }
+
+    const _retrieveData = async () => {
+        try{
+            const data = await AsyncStorage.getItem("isKVKKApproved");
+        }catch (error){
+            console.log(error);
+        }
     }
 
     return (
@@ -65,6 +77,9 @@ const RegisterScreen = () => {
                     style={styles.input}
                     secureTextEntry
                 />
+                <TouchableOpacity onPress={() => navigation.navigate("Aydinlatma-Metni")}>
+                    <Text style={styles.kvkk}>Aydınlatma Metni</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -96,6 +111,15 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 10,
         marginTop: 5
+    },
+    kvkk: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 10,
+        marginTop: 5,
+        paddingTop: 20,
+        color: 'blue',
+        fontWeight: "600"
     },
     buttonContainer: {
         width: '60%',

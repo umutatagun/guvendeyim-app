@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
-    Button, Keyboard,
-    ScrollView,
+    Keyboard,
     StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
-    TouchableWithoutFeedback,
     View
 } from "react-native";
-import { db, authenticate} from "../firebase";
+import { db } from "../firebase";
 
 
 const InformationScreen = ({route}) => {
@@ -42,7 +40,7 @@ const InformationScreen = ({route}) => {
                 onKeyPress={handleKeyButton}
             />
             <TouchableOpacity style={style.sendButton} onPress={sendMessageToDB}>
-                <Text style={{fontSize: 50, fontWeight: 'bold', paddingLeft: 10}}>Gönder</Text>
+                <Text style={{fontSize: 50, fontWeight: '700'}}>Gönder</Text>
              </TouchableOpacity>
         </View>
     );
@@ -62,6 +60,6 @@ const style = StyleSheet.create({
         flex: 0.5,
         justifyContent: 'center',
         borderWidth: 5,
-        borderRadius: '50%'
+        borderRadius: 50
     }
 })

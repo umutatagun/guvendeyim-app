@@ -64,13 +64,13 @@ const BorderScreen = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.listContainer} onPress={() => {navigation.navigate("Liste")}}>
-                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold', color: 'lightyellow'}}>Durum Listesi</Text>
+                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'lightyellow'}}>Durum Listesi</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.top} onPress={onGuvendeyimButton} >
-                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold'}}>Güvendeyim</Text>
+                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700'}}>Güvendeyim</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.bottom} onPress={onGuvendeDegilimButton} >
-                <Text style={{textAlign: 'center', fontSize: 40, color: '#fff', fontWeight: 'bold'}}>Güvende Değilim</Text>
+                <Text style={{textAlign: 'center', fontSize: 40, color: 'white', fontWeight: '700'}}>Güvende Değilim</Text>
             </TouchableOpacity>
         </View>
     );
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-evenly',
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         padding: 10,
         margin: 10,
     },
@@ -90,28 +90,28 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgreen',
         justifyContent: 'center',
         borderWidth: 5,
-        borderRadius: '50%'
+        borderRadius: 50
     },
     title: {
         flex: 0.1,
         backgroundColor: 'lightgray',
         justifyContent: 'center',
         borderWidth: 5,
-        borderRadius: '50%'
+        borderRadius: 50
     },
     listContainer: {
         flex: 0.1,
         backgroundColor: 'orange',
         justifyContent: 'center',
         borderWidth: 5,
-        borderRadius: '50%'
+        borderRadius: 50
     },
     bottom: {
         flex: 0.4,
         justifyContent: 'center',
         backgroundColor: 'red',
         borderWidth: 5,
-        borderRadius: '50%'
+        borderRadius: 50
     },
 });
 

@@ -35,8 +35,8 @@ const UserDetail = ({route}) => {
               </Marker>
             </MapView>
             <View style={styles.textArea} >
-                <Text style={{fontWeight: 'bold', fontSize: 24, color: 'black', textAlign: 'center'}}>İlgili Kişi Mesajı</Text>
-                <Text style={{fontWeight: '500', fontSize: 16}}>{text}</Text>
+                <Text style={{fontWeight: '700', fontSize: 24, color: 'black', textAlign: 'center'}}>İlgili Kişi Mesajı</Text>
+                <Text style={{fontWeight: '500', fontSize: 16, paddingLeft: 10, paddingRight: 10}}>{text}</Text>
             </View>
         </View>
     )
@@ -47,7 +47,7 @@ export default UserDetail
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'space-between'
     },
