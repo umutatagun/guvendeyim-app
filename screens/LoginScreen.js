@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { authenticate } from '../firebase';
 import {useNavigation} from "@react-navigation/native";
+import * as Location from "expo-location";
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16); //calculate with aspect ratio
@@ -28,7 +29,7 @@ const LoginScreen = () => {
                 const user = userCredentials.user;
                 console.log("Logged in with: ", user.email);
                 AsyncStorage.setItem("keepLoggedIn", JSON.stringify(true));
-                navigation.navigate("Border")
+                navigation.navigate("Ana Menu")
             })
             .catch(error => {
                 alert(error.message);
@@ -54,7 +55,7 @@ const LoginScreen = () => {
                 style={styles.input}
             />
             <TextInput
-                placeholder="Password"
+                placeholder="Şifre"
                 value={password}
                 onChangeText={ text => setPassword(text)}
                 style={styles.input}
@@ -64,16 +65,18 @@ const LoginScreen = () => {
 
         <View style={styles.buttonContainer}>
             <TouchableOpacity
+                activeOpacity={0.7}
                 onPress={handleLogin}
                 style={styles.button}
             >
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={styles.buttonText}>Giriş</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={() => {navigation.navigate("Register")}}
+                activeOpacity={0.7}
+                onPress={() => {navigation.navigate("Kaydol")}}
                 style={[styles.button, styles.buttonOutline]}
             >
-                <Text style={styles.buttonOutlineText}>Register</Text>
+                <Text style={styles.buttonOutlineText}>Kaydol</Text>
             </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>

@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {AsyncStorage, Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, { useState } from "react";
+import {AsyncStorage, ScrollView, StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {CheckBox} from "@rneui/themed";
 
 const KVKKScreen = () => {
     const [isSelected, setIsSelected] = useState(false);
+    const navigation = useNavigation();
 
     const clickHandler = () => {
         setIsSelected(!isSelected);
         AsyncStorage.setItem("isKVKKApproved", JSON.stringify(!isSelected))
             .then(() => {
                 alert("Seçiminiz Kaydedildi");
-                console.log(!isSelected)
+                navigation.navigate("Kaydol");
             })
             .catch(error => console.log(error));
     }
@@ -55,7 +56,7 @@ const KVKKScreen = () => {
             <Text style={styles.text}>•	İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun ortaya çıkmasına itiraz etmek.</Text>
                 <Text style={styles.text}>•	Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etmek.</Text>
             <Text style={styles.text}>Haklarınızı kullanmak istemeniz durumunda, Veri Sorumlusuna Başvuru Usul Ve Esasları Hakkında Tebliğ’in 5/1 maddesinde belirtilen yöntemlerle bize iletebilirsiniz.
-            İşbu aydınlatma metni ve kişisel verilerinizin işlenmesine ilişkin tüm sorularınız için………………….. e-posta adresi üzerinden iletişime geçebilirsiniz.
+            İşbu aydınlatma metni ve kişisel verilerinizin işlenmesine ilişkin tüm sorularınız için oceder@gmail.com e-posta adresi üzerinden iletişime geçebilirsiniz.
             </Text>
             </View>
             <View  style={styles.checkBoxContainer}>

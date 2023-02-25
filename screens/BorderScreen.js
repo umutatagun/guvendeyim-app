@@ -57,7 +57,7 @@ const BorderScreen = () => {
             setData.set(propData)
 
             propData.splittedMail = splittedMail;
-            navigation.navigate("Additional-Information", {jsonData: propData});
+            navigation.navigate("Ek Bilgi", {jsonData: propData});
         });
     }
 

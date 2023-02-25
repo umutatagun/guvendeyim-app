@@ -64,20 +64,22 @@ const RegisterScreen = () => {
                     style={styles.input}
                 />
                 <TextInput
-                    placeholder="Phone"
+                    placeholder="Telefon"
                     value={ phone }
                     onChangeText={ text => setPhone(text)}
                     style={styles.input}
                     keyboardType={'numeric'}
                 />
                 <TextInput
-                    placeholder="Password"
+                    placeholder="Şifre"
                     value={password}
                     onChangeText={ text => setPassword(text)}
                     style={styles.input}
                     secureTextEntry
                 />
-                <TouchableOpacity onPress={() => navigation.navigate("Aydinlatma-Metni")}>
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={() => navigation.navigate("Aydinlatma Metni")}>
                     <Text style={styles.kvkk}>Aydınlatma Metni</Text>
                 </TouchableOpacity>
             </View>
@@ -85,9 +87,10 @@ const RegisterScreen = () => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     onPress={handleSignUp}
+                    activeOpacity={0.7}
                     style={[styles.button, styles.buttonOutline]}
                 >
-                    <Text style={styles.buttonOutlineText}>Register</Text>
+                    <Text style={styles.buttonOutlineText}>Kaydol</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

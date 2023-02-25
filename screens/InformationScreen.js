@@ -33,13 +33,16 @@ const InformationScreen = ({route}) => {
         <View style={style.container}>
             <TextInput
                 style={{fontSize: 22, flex: 0.7}}
-                placeholder="Durumunuz hakkında ek bilgileri girin"
+                placeholder="Ek Bilgi (Boş Bırakabilirsiniz)"
                 onChangeText={newText => setText(newText)}
                 defaultValue={text}
                 multiline={true}
                 onKeyPress={handleKeyButton}
             />
-            <TouchableOpacity style={style.sendButton} onPress={sendMessageToDB}>
+            <TouchableOpacity
+                style={style.sendButton}
+                activeOpacity={0.7}
+                onPress={sendMessageToDB}>
                 <Text style={{fontSize: 50, fontWeight: '700'}}>Gönder</Text>
              </TouchableOpacity>
         </View>

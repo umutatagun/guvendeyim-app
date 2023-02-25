@@ -20,36 +20,36 @@ export default function App() {
             if(data === 'false') {
                 setIsLogged(false)
             }else if(data === 'true') {
-                setIsLogged(true);
+                setIsLogged(false);
             }
         }catch (error){
             console.log(error);
         }
     }
 
-    useEffect(() => {
-        _retrieveData();
+    useEffect( () => {
+        _retrieveData().then(() => console.log("isLogged: " + isLogged));
     })
 
   return (
       <NavigationContainer>
           {!isLogged ?
               <Stack.Navigator>
-                  < Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen}/>
+                  < Stack.Screen options={{headerShown: false}} name="Giriş" component={LoginScreen}/>
                   < Stack.Screen name="Liste" component={ListScreen} />
-                  < Stack.Screen name="Register" component={RegisterScreen} />
-                  < Stack.Screen name="Border" component={BorderScreen} />
-                  < Stack.Screen name="UserDetail" component={UserDetailScreen} />
-                  < Stack.Screen name="Additional-Information" component={InformationScreen} />
-                  < Stack.Screen name="Aydinlatma-Metni" component={KVKKScreen} />
+                  < Stack.Screen name="Kaydol" component={RegisterScreen} />
+                  < Stack.Screen name="Ana Menu" component={BorderScreen} />
+                  < Stack.Screen name="Detay" component={UserDetailScreen} />
+                  < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
+                  < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
               </Stack.Navigator> :
               <Stack.Navigator>
-                  < Stack.Screen name="Border" component={BorderScreen} />
+                  < Stack.Screen name="Ana Menu" component={BorderScreen} />
                   < Stack.Screen name="Liste" component={ListScreen} />
-                  < Stack.Screen name="Register" component={RegisterScreen} />
-                  < Stack.Screen name="UserDetail" component={UserDetailScreen} />
-                  < Stack.Screen name="Additional-Information" component={InformationScreen} />
-                  < Stack.Screen name="Aydinlatma-Metni" component={KVKKScreen} />
+                  < Stack.Screen name="Kaydol" component={RegisterScreen} />
+                  < Stack.Screen name="Detay" component={UserDetailScreen} />
+                  < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
+                  < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
               </Stack.Navigator>
           }
       </NavigationContainer>
