@@ -6,12 +6,37 @@ import RegisterScreen from "./screens/RegisterScreen";
 import ListScreen from "./screens/ListScreen";
 import UserDetailScreen from "./screens/UserDetailScreen";
 import {useEffect, useState} from "react";
-import {AsyncStorage} from "react-native";
+import {AsyncStorage, Text, View} from "react-native";
 import InformationScreen from "./screens/InformationScreen";
 import KVKKScreen from "./screens/KVKKScreen";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import ProfileScreen from "./screens/ProfileScreen";
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const ProfileComponent = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+        </Stack.Navigator>
+    )
+}
+const HomeComponent = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
+            < Stack.Screen name="Ana Menu" component={BorderScreen} />
+            < Stack.Screen name="Kaydol" component={RegisterScreen} />
+            <Stack.Screen name="Liste" component={ListScreen} />
+            < Stack.Screen name="Detay" component={UserDetailScreen} />
+            < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
+            < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
+        </Stack.Navigator>
+    )
+}
 
 export default function App() {
-    const Stack = createNativeStackNavigator();
     const [isLogged, setIsLogged] = useState(false);
 
     const _retrieveData = async () => {
@@ -34,23 +59,13 @@ export default function App() {
   return (
       <NavigationContainer>
           {!isLogged ?
-              <Stack.Navigator>
-                  < Stack.Screen options={{headerShown: false}} name="Giriş" component={LoginScreen}/>
-                  < Stack.Screen name="Liste" component={ListScreen} />
-                  < Stack.Screen name="Kaydol" component={RegisterScreen} />
-                  < Stack.Screen name="Ana Menu" component={BorderScreen} />
-                  < Stack.Screen name="Detay" component={UserDetailScreen} />
-                  < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
-                  < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
-              </Stack.Navigator> :
-              <Stack.Navigator>
-                  < Stack.Screen name="Ana Menu" component={BorderScreen} />
-                  < Stack.Screen name="Liste" component={ListScreen} />
-                  < Stack.Screen name="Kaydol" component={RegisterScreen} />
-                  < Stack.Screen name="Detay" component={UserDetailScreen} />
-                  < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
-                  < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
-              </Stack.Navigator>
+              <Tab.Navigator screenOptions={{ headerShown: false }}>
+                  <Tab.Screen name="Genel" component={HomeComponent} />
+                  <Tab.Screen name="Profil" component={ProfileComponent} />
+              </Tab.Navigator> :
+              <Tab.Navigator screenOptions={{ headerShown: false }}>
+                  <Tab.Screen name="Genel" component={HomeComponent} />
+              </Tab.Navigator>
           }
       </NavigationContainer>
   );

@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     Text,
     View,
     StyleSheet
-    , Dimensions, TouchableOpacity
+    , Dimensions
 } from "react-native";
 import MapView, {Callout, Marker} from "react-native-maps";
-import { db, authenticate} from "../firebase";
+import { db } from "../firebase";
 
 const UserDetail = ({route}) => {
     const splittedMail = route.params.user.split("@")[0];

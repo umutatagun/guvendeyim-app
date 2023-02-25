@@ -30,6 +30,7 @@ const LoginScreen = () => {
                 console.log("Logged in with: ", user.email);
                 AsyncStorage.setItem("keepLoggedIn", JSON.stringify(true));
                 navigation.navigate("Ana Menu")
+                setPassword('');
             })
             .catch(error => {
                 alert(error.message);
