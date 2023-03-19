@@ -1,27 +1,29 @@
-import React, {useEffect} from "react";
-import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import { db, authenticate} from "../firebase";
 import {useNavigation} from "@react-navigation/native";
 
 const ListScreen = () => {
+    const [search, setSearch] = useState('');
     const navigation = useNavigation();
     let tempList = [];
 
     db.ref("/status").on('value', (snapshot) => {
         snapshot.forEach(elem => {
+            let item = elem.toJSON();
             tempList.push(
                 <TouchableOpacity
                     style={styles.viewStyle}
                     key={Math.random()}
                     activeOpacity={0.6}
-                    onPress={() => {navigation.navigate("Detay",{user: elem.toJSON()['email']})}}>
+                    onPress={() => {navigation.navigate("Detay",{user: item['email']})}}>
                     <View key={Math.random()}>
-                        <Text key={elem.toJSON()['nameSurname']}>{elem.toJSON()['nameSurname']}</Text>
-                        <Text key={elem.toJSON()['phone']}>{elem.toJSON()['phone']}</Text>
+                        <Text key={item['nameSurname']}>{item['nameSurname']}</Text>
+                        <Text key={item['phone']}>{item['phone']}</Text>
                     </View>
                     <View key={Math.random()}>
-                        <Text key={elem.toJSON()['currentStatus']}>{elem.toJSON()['currentStatus']}</Text>
-                        <Text key={elem.toJSON()['date']}>{elem.toJSON()['date']}</Text>
+                        <Text key={item['currentStatus']}>{item['currentStatus']}</Text>
+                        <Text key={item['date']}>{item['date']}</Text>
                     </View>
                 </TouchableOpacity>
             )
@@ -30,6 +32,14 @@ const ListScreen = () => {
 
     return(
         <ScrollView style={styles.scrollView} key={2}>
+            <TextInput
+                style={styles.textInput}
+                placeholder="İsim Giriniz"
+                value={search}
+                onChangeText={(text) => {searchFilter(text)}}
+            >
+
+            </TextInput>
             {tempList}
         </ScrollView>
     )
@@ -43,7 +53,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop: 10
     },
-
+    textInput: {
+        height: 40,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 10,
+        marginBottom: 10,
+        borderWidth: 1
+    },
     viewStyle: {
         flex: 1,
         flexDirection: 'row',
