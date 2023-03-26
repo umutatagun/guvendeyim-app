@@ -28,6 +28,7 @@ const BorderScreen = () => {
     }, []);
 
     function onGuvendeyimButton() {
+        console.log(location.coords);
         getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
             setData.set({
                 nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
@@ -67,7 +68,7 @@ const BorderScreen = () => {
                 <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'lightyellow'}}>Durum Listesi</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.top} onPress={onGuvendeyimButton} >
-                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700'}}>Güvendeyim</Text>
+                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'white',}}>Güvendeyim</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.bottom} onPress={onGuvendeDegilimButton} >
                 <Text style={{textAlign: 'center', fontSize: 40, color: 'white', fontWeight: '700'}}>Güvende Değilim</Text>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 0.4,
-        backgroundColor: 'lightgreen',
+        backgroundColor: 'green',
         justifyContent: 'center',
         borderWidth: 5,
         borderRadius: 50

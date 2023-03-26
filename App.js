@@ -11,6 +11,8 @@ import InformationScreen from "./screens/InformationScreen";
 import KVKKScreen from "./screens/KVKKScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ProfileScreen from "./screens/ProfileScreen";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import EmergencyButtons from "./screens/EmergencyButtons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -23,6 +25,7 @@ const ProfileComponent = () => {
     )
 }
 const HomeComponent = () => {
+    // <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
     return (
         <Stack.Navigator>
             <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
@@ -32,6 +35,7 @@ const HomeComponent = () => {
             < Stack.Screen name="Detay" component={UserDetailScreen} />
             < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
             < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
+            < Stack.Screen name="Emergency" component={EmergencyButtons} />
         </Stack.Navigator>
     )
 }
@@ -58,13 +62,41 @@ export default function App() {
 
   return (
       <NavigationContainer>
+
           {!isLogged ?
               <Tab.Navigator screenOptions={{ headerShown: false }}>
-                  <Tab.Screen name="Genel" component={HomeComponent} />
-                  <Tab.Screen name="Profil" component={ProfileComponent} />
+                  <Tab.Screen
+                      name="Genel"
+                      component={HomeComponent}
+                      options={{
+                          tabBarLabel: 'Home',
+                          tabBarIcon: ({ color, size }) => (
+                              <MaterialCommunityIcons name="home" color={color} size={size} />
+                          ),
+                      }}
+                  />
+                  <Tab.Screen
+                      name="Profil"
+                      component={ProfileComponent}
+                      options={{
+                          tabBarLabel: 'Profile',
+                          tabBarIcon: ({ color, size }) => (
+                              <MaterialCommunityIcons name="face-man-profile" color={color} size={size} />
+                          ),
+                      }}
+                  />
               </Tab.Navigator> :
               <Tab.Navigator screenOptions={{ headerShown: false }}>
-                  <Tab.Screen name="Genel" component={HomeComponent} />
+                  <Tab.Screen
+                      name="Genel"
+                      component={HomeComponent}
+                      options={{
+                          tabBarLabel: 'Home',
+                          tabBarIcon: ({ color, size }) => (
+                              <MaterialCommunityIcons name="home" color={color} size={size} />
+                          ),
+                      }}
+                  />
               </Tab.Navigator>
           }
       </NavigationContainer>

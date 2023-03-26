@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Mobil",
-    "slug": "Mobil",
+    "name": "Oce",
+    "slug": "Oce.app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/oce_logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -22,6 +22,8 @@
       "bundleIdentifier": "com.oce.guvendeyim"
     },
     "android": {
+      "package": "ttpc.oce",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
