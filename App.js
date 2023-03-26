@@ -25,22 +25,6 @@ const ProfileComponent = () => {
     )
 }
 const HomeComponent = () => {
-    // <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
-            < Stack.Screen name="Ana Menu" component={BorderScreen} />
-            < Stack.Screen name="Kaydol" component={RegisterScreen} />
-            <Stack.Screen name="Liste" component={ListScreen} />
-            < Stack.Screen name="Detay" component={UserDetailScreen} />
-            < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
-            < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
-            < Stack.Screen name="Emergency" component={EmergencyButtons} />
-        </Stack.Navigator>
-    )
-}
-
-export default function App() {
     const [isLogged, setIsLogged] = useState(false);
 
     const _retrieveData = async () => {
@@ -49,7 +33,7 @@ export default function App() {
             if(data === 'false') {
                 setIsLogged(false)
             }else if(data === 'true') {
-                setIsLogged(false);
+                setIsLogged(true);
             }
         }catch (error){
             console.log(error);
@@ -58,12 +42,43 @@ export default function App() {
 
     useEffect( () => {
         _retrieveData().then(() => console.log("isLogged: " + isLogged));
-    })
+    },[])
+    // <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
+    return (
+        <>
+            {isLogged ?
+                <Stack.Navigator>
+                    < Stack.Screen name="Ana Menu" component={BorderScreen} />
+                    < Stack.Screen name="Kaydol" component={RegisterScreen} />
+                    <Stack.Screen name="Liste" component={ListScreen} />
+                    < Stack.Screen name="Detay" component={UserDetailScreen} />
+                    < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
+                    < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
+                    < Stack.Screen name="Emergency" component={EmergencyButtons} />
+                </Stack.Navigator>
+                :
+                <Stack.Navigator>
+                    <Stack.Screen name="Login" options={{headerShown: false}} component={LoginScreen}  />
+                    < Stack.Screen name="Ana Menu" component={BorderScreen} />
+                    < Stack.Screen name="Kaydol" component={RegisterScreen} />
+                    <Stack.Screen name="Liste" component={ListScreen} />
+                    < Stack.Screen name="Detay" component={UserDetailScreen} />
+                    < Stack.Screen name="Ek Bilgi" component={InformationScreen} />
+                    < Stack.Screen name="Aydinlatma Metni" component={KVKKScreen} />
+                    < Stack.Screen name="Emergency" component={EmergencyButtons} />
+                </Stack.Navigator>
 
+            }
+
+        </>
+
+    )
+}
+
+export default function App() {
   return (
       <NavigationContainer>
 
-          {!isLogged ?
               <Tab.Navigator screenOptions={{ headerShown: false }}>
                   <Tab.Screen
                       name="Genel"
@@ -85,20 +100,7 @@ export default function App() {
                           ),
                       }}
                   />
-              </Tab.Navigator> :
-              <Tab.Navigator screenOptions={{ headerShown: false }}>
-                  <Tab.Screen
-                      name="Genel"
-                      component={HomeComponent}
-                      options={{
-                          tabBarLabel: 'Home',
-                          tabBarIcon: ({ color, size }) => (
-                              <MaterialCommunityIcons name="home" color={color} size={size} />
-                          ),
-                      }}
-                  />
               </Tab.Navigator>
-          }
       </NavigationContainer>
   );
 }

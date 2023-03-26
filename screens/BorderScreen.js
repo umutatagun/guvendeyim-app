@@ -28,7 +28,6 @@ const BorderScreen = () => {
     }, []);
 
     function onGuvendeyimButton() {
-        console.log(location.coords);
         getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
             setData.set({
                 nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
@@ -45,7 +44,6 @@ const BorderScreen = () => {
     function onGuvendeDegilimButton() {
 
         getData.orderByKey().equalTo(splittedMail).on('value', (snapshot) => {
-
             let propData = {
                 nameSurname: snapshot.child(splittedMail).toJSON()["nameSurname"],
                 phone: snapshot.child(splittedMail).toJSON()["phone"],
@@ -64,14 +62,26 @@ const BorderScreen = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.listContainer} onPress={() => {navigation.navigate("Liste")}}>
-                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'lightyellow'}}>Durum Listesi</Text>
+            <TouchableOpacity
+                style={styles.listContainer}
+                activeOpacity={.65}
+                onPress={() => {navigation.navigate("Liste")}}>
+                <Text
+                    style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'lightyellow'}}>Durum Listesi</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.top} onPress={onGuvendeyimButton} >
-                <Text style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'white',}}>Güvendeyim</Text>
+            <TouchableOpacity
+                style={styles.top}
+                activeOpacity={.65}
+                onPress={onGuvendeyimButton} >
+                <Text
+                    style={{textAlign: 'center', fontSize: 40, fontWeight: '700', color: 'white',}}>Güvendeyim</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.bottom} onPress={onGuvendeDegilimButton} >
-                <Text style={{textAlign: 'center', fontSize: 40, color: 'white', fontWeight: '700'}}>Güvende Değilim</Text>
+            <TouchableOpacity
+                style={styles.bottom}
+                activeOpacity={.65}
+                onPress={onGuvendeDegilimButton} >
+                <Text
+                    style={{textAlign: 'center', fontSize: 40, color: 'white', fontWeight: '700'}}>Güvende Değilim</Text>
             </TouchableOpacity>
         </View>
     );
@@ -88,7 +98,7 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 0.4,
-        backgroundColor: 'green',
+        backgroundColor: '#22c55e',
         justifyContent: 'center',
         borderWidth: 5,
         borderRadius: 50
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
     bottom: {
         flex: 0.4,
         justifyContent: 'center',
-        backgroundColor: 'red',
+        backgroundColor: '#c71706',
         borderWidth: 5,
         borderRadius: 50
     },
